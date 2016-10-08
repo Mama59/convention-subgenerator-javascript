@@ -1,0 +1,229 @@
+{
+  // http://eslint.org/docs/rules/
+
+  "env": {
+    "browser": <%= env === "browser" %>,     // browser global variables.
+    "node": <%= env === "node" %>,        // Node.js global variables and Node.js_specific rules.
+    "mocha": <%=  test === "mocha" %>,       // adds all of the Mocha testing global variables.
+    "jasmine": <%=  test === "jasmine" %>,     // adds all of the Jasmine testing global variables for version 1.3 and 2.
+    "jquery": <%= jquery %>,      // jquery global variables.
+  },
+
+
+  "rules": {
+    ////////// Strict Mode //////////
+
+    "strict": <%= strict %>,   // (deprecated) require or disallow the "use strict" pragma in the global scope (off by default in the node environment)
+
+    // References
+    "prefer-const":  <%= prefer_const %>,           // This rule is aimed at flagging variables that are declared using let keyword, but never reassigned after the initial assignment.
+    "no-var": <%= no_var %>,          // require let or const instead of var (off by default)
+
+    // Objects
+    "no-new-object": <%= no_new_object %>,             // disallow use of the Object constructor
+    "object-shorthand": <%= object_shorthand %>     // This syntax can make defining complex object literals much cleaner.
+    "quote-props": <%= quote_props %>,        // disallow reserved words being used as object literal keys (off by default)
+    "no-obj-calls": <%= no_obj_calls %>,            // disallow the use of object properties of the global object (Math and JSON) as functions
+    "no-global-assign": <%= no_global_assign %>,    // disallow reassignments of native objects
+    "key-spacing": <%= key_spacing %>,               // enforces spacing between keys and values in object literal properties
+    "no-dupe-keys": <%= no_dupe_keys %>,            // disallow duplicate keys when creating object literals
+
+    // Arrays
+    "no-sparse-arrays": <%= no_sparse_arrays %>,        // disallow sparse arrays
+    "no-array-constructor": <%= no_array_constructor %>,      // disallow use of the Array constructor
+    "array-callback-return": <%= array_callback_return %> //  Use return statements in array method callbacks. It's ok to omit the return if the function body consists of a single statement following 8.2
+    "array-bracket-spacing": <%= array_bracket_spacing %>,         // require or disallow spaces inside brackets (off by default)
+
+    //String
+    "no-invalid-regexp": <%= no_invalid_regexp %>,       // disallow invalid regular expression strings in the RegExp constructor
+    "no-irregular-whitespace": <%= no_irregular_whitespace %>, // disallow irregular whitespace outside of strings and comments
+    "quotes": <%= quotes %>,                    // specify whether double or single quotes should be used
+    "prefer-template" : <%= prefer_template %>          // When programmatically building up strings, use template strings instead of concatenation
+    "template-curly-spacing" : <%= template_curly_spacing %> //
+
+    //Function
+    "no-func-assign": <%= no_func_assign %>,          // disallow overwriting functions written as function declarations
+    "no-inner-declarations": <%= no_inner_declarations %>,   // disallow function or variable declarations in nested blocks
+    "no-loop-func": <%= no_loop_func %>,          // disallow creation of functions within loops
+    "no-extra-bind": <%= no_extra_bind %>,         // disallow unnecessary function binding
+    "wrap-iife": <%= wrap_iife %>,             // require immediate function invocation to be wrapped in parentheses (off by default)
+    "func-names": <%= func_names %>,                // require function expressions to have a name (off by default)
+    "func-style": <%= func_style %>,                // enforces use of function declarations or expressions (off by default)
+    "no-new-require": <%= no_new_require %>,        // disallow use of new operator with the require function (off by default) (on by default in the node environment)
+    "func-call-spacing": <%= func_call_spacing %>,            // disallow space between function identifier and application
+    "prefer-rest-params": <%= prefer_rest_params %>       // Never use arguments, opt to use rest syntax ... instead
+    "no-new-func": <%= no_new_func %>,           // disallow use of new operator for Function object
+    "no-param-reassign": <%= no_param_reassign %>         // Never mutate parameters, Never reassign parameters
+    "prefer-spread": <%= prefer_spread %>     // Prefer the use of the spread operator ... to call variadic functions
+
+    // Arrow
+    "prefer-arrow-callback": <%= prefer_arrow_callback %>     // When you must use function expressions (as when passing an anonymous function), use arrow function notation.
+    "arrow-spacing": <%= arrow_spacing %>                     // This rule normalize style of spacing before/after an arrow function’s arrow(=>)
+    "arrow-parens": <%= arrow_parens %>                       // Arrow functions can omit parentheses when they have exactly one parameter. In all other cases the parameter(s) must be wrapped in parentheses. This rule enforces the consistent use of parentheses in arrow functions.
+    "arrow-body-style": <%= arrow_body_style %>               // Arrow functions have two syntactic forms for their function bodies. They may be defined with a block body (denoted by curly braces) () => { ... } or with a single expression () => ..., whose value is implicitly returned.
+    "no-confusing-arrow": <%= no_confusing_arrow %>           // Avoid confusing arrow function syntax (=>) with comparison operators (<=, >=).
+
+    // Class & Constructors
+    "new-parens": <%= new_parens %>,                // disallow the omission of parentheses when invoking a constructor with no arguments
+    "no-useless-constructor": <%= no_useless_constructor %>   // Classes have a default constructor if one is not specified. An empty constructor function or one that just delegates to a parent class is unnecessary.
+    "no-dupe-class-members": <%= no_dupe_class_members %>     //  Avoid duplicate class members.
+
+    // Modules
+    "no-duplicate-imports": <%= no_duplicate_imports %>     // Only import from a path in one place
+    "no-restricted-modules": <%= no_restricted_modules %>, // restrict usage of specified node modules (off by default)
+
+    //Iterators & Generators
+    "no-iterator": <%= no_iterator %>,           // disallow usage of __iterator__ property
+    "generator-star-spacing": <%= generator_star_spacing %>,  // enforce the position of the * in generator functions (off by default)
+    "no-restricted-syntax" : <%= no_restricted_syntax %>    // This rule disallows specified (that is, user_defined) syntax.
+
+    // Properties
+    "dot-notation": <%= dot_notation %>,          // encourages use of dot notation whenever possible
+
+    // Variables
+    "vars-on-top": <%= vars_on_top %>,           // requires to declare all vars on top of their containing scope (off by default)
+    "no-catch-shadow": <%= no_catch_shadow %>,             // disallow the catch clause parameter name being the same as a variable in the outer scope (off by default in the node environment)
+    "no-delete-var": <%= no_delete_var %>,               // disallow deletion of variables
+    "no-label-var": <%= no_label_var %>,                // disallow labels that share a name with a variable
+    "no-shadow": <%= no_shadow %>,                   // disallow declaration of variables already declared in the outer scope
+    "no-shadow-restricted-names": <%= no_shadow_restricted_names %>,  // disallow shadowing of names such as arguments
+    "no-undef": <%= no_undef %>,                    // disallow use of undeclared variables unless mentioned in a /*global */ block
+    "no-undef-init": <%= no_undef_init %>,               // disallow use of undefined when initializing variables
+    "no-undefined": <%= no_undefined %>,                // disallow use of undefined variable (off by default)
+    "no-unused-vars": <%= no_unused_vars %>,              // disallow declaration of variables that are not used in the code
+    "no-use-before-define": <%= no_use_before_define %>,        // disallow use of variables before they are defined
+    "one-var": <%= one_var %>,                   // allow just one var statement per function (off by default)
+    "block-scoped-var": <%= block_scoped_var %>,      // treat var statements as if they were block scoped (off by default)
+    "no-octal-escape": <%= no_octal_escape %>,       // disallow use of octal escape sequences in string literals, such as var foo = "Copyright \251";
+    "no-mixed-requires": <%= no_mixed_requires %>,     // disallow mixing regular variable and require declarations (off by default) (on by default in the node environment)
+    "no-redeclare": <%= no_redeclare %>,          // disallow declaring the same variable more then once
+    "sort-vars": <%= sort_vars %>,                 // sort variables within the same declaration block (off by default)
+    "no-plusplus": <%= no_plusplus %>      // disallow use of unary operators, ++ and __ (off by default)
+
+    // Comparison Operators & Equality
+    "eqeqeq": <%= eqeqeq %>,                // require the use of === and !==
+    "no-nested-ternary": <%= no_nested_ternary %>,         // disallow nested ternary expressions (off by default)
+    "no-case-declarations": <%= no_case_declarations %>     //  This rule aims to prevent access to uninitialized lexical bindings as well as accessing hoisted functions across case clauses.
+    "no-unneeded-ternary": <%= no_unneeded_ternary %>       // Avoid unneeded ternary statements
+    "no-unsafe-negation": <%= no_unsafe_negation %>,       // disallow negation of the left operand of an in expression
+    "no-div-regex": <%= no_div_regex %>,          // disallow division operators explicitly at beginning of regular expression (off by default)
+    "no-ternary": <%= no_ternary %>,                // disallow the use of ternary operators (off by default)
+    "use-isnan": <%= use_isnan %>,               // disallow comparisons with the value NaN
+    "no-extra-boolean-cast": <%= no_extra_boolean_cast %>,   // disallow double_negation boolean casts in a boolean context
+    "no-eq-null": <%= no_eq_null %>,            // disallow comparisons to null without a type_checking operator (off by default)
+    "no-self-compare": <%= no_self_compare %>,       // disallow comparisons where both sides are exactly the same (off by default)
+    "no-new": <%= no_new %>,                // disallow use of new operator when not part of the assignment or comparison
+    "no-void": <%= no_void %>,               // disallow use of void operator (off by default)
+    "operator-assignment": <%= operator_assignment %>,       // require assignment operator shorthand where possible or prohibit it entirely (off by default)
+    "no-bitwise": <%= no_bitwise %>,      // disallow use of bitwise operators (off by default)
+
+    // Blocks
+    "brace-style": <%= brace_style %>,               // enforce one true brace style (off by default)
+    "no-ex-assign": <%= no_ex_assign %>,            // disallow assigning to the exception in a catch block
+    "curly": <%= curly %>,                 // specify curly brace conventions for all control statements
+    "no-lone-blocks": <%= no_lone_blocks %>,        // disallow unnecessary nested blocks
+    "padded-blocks": <%= padded_blocks %>,             // enforce padding within blocks (off by default)
+    "max-depth": <%= max_depth %>,       // specify the maximum depth that blocks can be nested (off by default)
+    "no-lonely-if": <%= no_lonely_if %>,              // disallow if as the only statement in an else block (off by default)
+
+    // Comments
+    "valid-jsdoc": <%= valid_jsdoc %>,             // Ensure JSdoc comments are valid (off by default)
+    "spaced-comment": <%= spaced_comment %>,       // require or disallow a space immediately following the // in a line comment (off by default)
+    "no-warning-comments": <%= no_warning_comments %>,   // disallow usage of configurable warning terms in comments, e.g. TODO or FIXME (off by default)
+    "no-inline-comments": <%= no_inline_comments %>,        // disallow comments inline after code (off by default)
+
+    // Whitespace
+    "no-mixed-spaces-and-tabs": <%= no_mixed_spaces_and_tabs %>,  // disallow mixed spaces and tabs for indentation
+    "indent": <%= indent %>         // Use soft tabs set to 2 spaces.
+    "space-before-blocks": <%= space_before_blocks %>,       // require or disallow space before blocks (off by default)
+    "space-before-function-paren": <%= space_before_function_paren %>, // require a space after function names (off by default)
+    "no-regex-spaces": <%= no_regex_spaces %>,          // disallow multiple spaces in a regular expression literal
+    "no-multi-spaces": <%= no_multi_spaces %>,          // disallow use of multiple spaces
+    "space-in-parens": <%= space_in_parens %>,          // require or disallow spaces inside parentheses (off by default)
+    "space-unary-ops": <%= space_unary_ops %>,          // require or disallow spaces before/after unary operators (words on by default, nonwords off by default)
+    "space-infix-ops": <%= space_infix_ops %>,          // require spaces around operators
+    "semi-spacing": <%= semi_spacing %>,                // disallow space before semicolon
+    "keyword-spacing": <%= keyword_spacing %>,          // require a space after certain keywords (off by default)
+    "no-trailing-spaces": <%= no_trailing_spaces %>,    // disallow trailing whitespace at the end of lines
+    "eol-last": <%= eol_last %>,                  // enforce newline at the end of file, with no multiple empty lines
+    "newline-per-chained-call" : <%= newline_per_chained_call %>  //Chained method calls on a single line without line breaks are harder to read, so some developers place a newline character after each method call in the chain to make it more readable and easy to maintain.
+    "no-whitespace-before-property" : <%= no_whitespace_before_property %>    // JavaScript allows whitespace between objects and their properties. However, inconsistent spacing can make code harder to read and can lead to errors.
+    "array-bracket-spacing" : <%= array_bracket_spacing %>      // do not add spaces inside brackets
+    "object-curly-spacing" : <%= object_curly_spacing %>      // add spaces inside curly braces.
+    "max-len": <%= max_len %>,         // specify the maximum length of a line in your program (off by default)
+
+    // Commas
+    "comma-style": <%= comma_style %>,               // enforce one true comma style (off by default)
+    "no-sequences": <%= no_sequences %>,          // disallow use of comma operator
+    "comma-spacing": <%= comma_spacing %>,             // enforce spacing before and after comma
+    "comma-dangle": <%= comma_dangle %>,         // disallow trailing commas in object literals
+
+    // Semilicolons
+    "no-extra-semi": <%= no_extra_semi %>,           // disallow unnecessary
+    "semi": <%= semi %>,                      // require or disallow use of semicolons instead of ASI
+
+    // Naming Conventions
+    "camelcase": <%= camelcase %>,                 // require camel case names
+    "default-case": <%= default_case %>,          // require default case in switch statements (off by default)
+    "no-underscore-dangle": <%= no_underscore_dangle %>,      // disallow dangling underscores in identifiers
+
+    // Regex
+    "no-control-regex": <%= no_control_regex %>,        // disallow control characters in regular expressions
+    "no-div-regex": <%= no_div_regex %>,          // disallow division operators explicitly at beginning of regular expression (off by default)
+    "wrap-regex": <%= wrap_regex %>,                // require regex literals to be wrapped in parentheses (off by default)
+
+
+    ////////// Best Practices //////////
+
+    "no-cond-assign": <%= no_cond_assign %>,          // disallow assignment in conditional expressions
+    "no-console": <%= no_console %>,              // disallow use of console (off by default in the node environment)
+    "no-constant-condition": <%= no_constant_condition %>,   // disallow use of constant expressions in conditions
+    "no-debugger": <%= no_debugger %>,             // disallow use of debugger
+    "no-empty": <%= no_empty %>,                // disallow empty statements
+    "no-empty-character-class": <%= no_empty_character_class %>,          // disallow the use of empty character classes in regular expressions
+    "no-extra-parens": <%= no_extra_parens %>,         // disallow unnecessary parentheses (off by default)
+    "no-unreachable": <%= no_unreachable %>,          // disallow unreachable statements after a return, throw, continue, or break statement
+    "valid-typeof": <%= valid_typeof %>,            // Ensure that the results of typeof are compared against a valid string
+    "complexity": <%= complexity %>,            // specify the maximum cyclomatic complexity allowed in a program (off by default)
+    "consistent-return": <%= consistent_return %>,     // require return statements to either always or never specify values
+    "guard-for-in": <%= guard_for_in %>,          // make sure for_in loops have an if statement (off by default)
+    "no-alert": <%= no_alert %>,              // disallow the use of alert, confirm, and prompt
+    "no-caller": <%= no_caller %>,             // disallow use of arguments.caller or arguments.callee
+    "no-else-return": <%= no_else_return %>,        // disallow else after a return in an if (off by default)
+    "no-labels": <%= no_labels %>,        // disallow use of labels for anything other then loops and switches
+    "no-eval": <%= no_eval %>,               // disallow use of eval()
+    "no-extend-native": <%= no_extend_native %>,      // disallow adding to native types
+    "no-fallthrough": <%= no_fallthrough %>,        // disallow fallthrough of case statements
+    "no-floating-decimal": <%= no_floating_decimal %>,   // disallow the use of leading or trailing decimal points in numeric literals (off by default)
+    "no-implied-eval": <%= no_implied_eval %>,       // disallow use of eval()_like methods
+    "no-multi-str": <%= no_multi_str %>,          // disallow use of multiline strings
+    "no-new-wrappers": <%= no_new_wrappers %>,       // disallows creating new instances of String, Number, and Boolean
+    "no-octal": <%= no_octal %>,              // disallow use of octal literals
+    "no-process-env": <%= no_process_env %>,        // disallow use of process.env (off by default)
+    "no-proto": <%= no_proto %>,              // disallow usage of __proto__ property
+    "no-return-assign": <%= no_return_assign %>,      // disallow use of assignment in return statement
+    "no-script-url": <%= no_script_url %>,         // disallow use of javascript: urls.
+    "no-unused-expressions": <%= no_unused_expressions %>, // disallow usage of expressions in statement position
+    "no-with": <%= no_with %>,               // disallow use of the with statement
+    "radix": <%= radix %>,                 // require use of the second argument for parseInt() (off by default)
+    "yoda": <%= yoda %>,                  // require or disallow Yoda conditions
+
+
+    ////////// Node.js //////////
+
+    "handle-callback-err": <%= handle_callback_err %>,   // enforces error handling in callbacks (off by default) (on by default in the node environment)
+    "no-path-concat": <%= no_path_concat %>,        // disallow string concatenation with __dirname and __filename (off by default) (on by default in the node environment)
+    "no-process-exit": <%= no_process_exit %>,       // disallow process.exit() (on by default in the node environment)
+    "no-sync": <%= no_sync %>,               // disallow use of synchronous methods (off by default)
+
+
+    ////////// Stylistic Issues //////////
+
+    "consistent-this": <%= consistent_this %>,           // enforces consistent naming when capturing the current execution context (off by default)
+    "max-nested-callbacks": <%= max_nested_callbacks %>,      // specify the maximum depth callbacks can be nested (off by default)
+
+    "no-multiple-empty-lines": <%= no_multiple_empty_lines %>,   // disallow multiple empty lines (off by default)
+    "no-extra-parens": <%= no_extra_parens %>,              // disallow wrapping of non_IIFE statements in parens
+
+  }
+}
