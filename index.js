@@ -9,8 +9,8 @@ var gulpfileGenerator = module.exports = generators.Base.extend({
     var self = this;
     this.vars = {};
     allEslintRules.forEach(function (rule) {
-      self.vars[_.snakeCase(rule)] = false;
-      self.vars[rule] = false;
+        self.vars[_.snakeCase(rule)] = false;
+        self.vars[rule] = false;
     });
   },
 
@@ -18,11 +18,40 @@ var gulpfileGenerator = module.exports = generators.Base.extend({
     var self = this;
     var done = self.async();
 
-    self.prompt(questions.filter(function (answer) { return answer.type !== 'list-depth';}).slice(0, 10) , function (answers) {
-      _.assign(self.vars, answers);
-      done();
+    var list = questions.slice(0, 10).reduce(function (concatList, question) {
+        return concatList.concat(question.type !== 'list-depth' ? [question] : question.lists);
+    }, []);
+
+    self.prompt(list, function (answers) {
+        var answersTmp = {};
+        _.forEach(answers, function (answer, key) {
+            var splittedKey = key.split('.');
+
+            if (splittedKey.length > 1) {
+                var name = splittedKey[0];
+                var option = splittedKey[1];
+                if (answersTmp[name] !== undefined) {
+                    answersTmp[name][option] = answer;
+                }
+                else {
+                    answersTmp[name] = {};
+                    answersTmp[name][option] = answer;
+                }
+            }
+            else {
+                answersTmp[key] = answer;
+            }
+        });
+
+        _.forEach(answersTmp, function (answer, key) {
+            answersTmp[key] = JSON.stringify(answer);
+        });
+
+        _.assign(self.vars, answersTmp);
+        done();
     });
   },
+
 
   configuring: function () {
     var self = this;
@@ -38,7 +67,7 @@ var gulpfileGenerator = module.exports = generators.Base.extend({
     var self = this;
 
     self.installDependencies();
-    self.npmInstall(['eslint'], { 'saveDev': true });
+    self.npmInstall(['eslint'], {'saveDev': true});
   },
 
   end: function () {
