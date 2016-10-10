@@ -9,8 +9,8 @@ var gulpfileGenerator = module.exports = generators.Base.extend({
     var self = this;
     this.vars = {};
     allEslintRules.forEach(function (rule) {
-        self.vars[_.snakeCase(rule)] = false;
-        self.vars[rule] = false;
+        self.vars[_.snakeCase(rule)] = 0;
+        self.vars[rule] = 0;
     });
   },
 
@@ -44,6 +44,15 @@ var gulpfileGenerator = module.exports = generators.Base.extend({
         });
 
         _.forEach(answersTmp, function (answer, key) {
+            if(answer === true) {
+              answer = 2;
+            }
+            else if(answer === false) {
+              answer = 0;
+            }
+            else{
+              answer = [1, answer];
+            }
             answersTmp[key] = JSON.stringify(answer);
         });
 
