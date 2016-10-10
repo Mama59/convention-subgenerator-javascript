@@ -5,10 +5,26 @@ var allEslintRules = require('all-eslint-rules');
 var questions = require('./questions');
 
 var gulpfileGenerator = module.exports = generators.Base.extend({
+  // constructor: function () {
+  //   console.log(this.option);
+  //   this.option('level_config', {
+  //     type: 'string',
+  //     required: false,
+  //     defaults: 'expert',
+  //     desc: 'Level config'
+  //   });
+  // },
+
   initializing: function () {
     var self = this;
+    var levelQuestion = {
+      type: 'list',
+      name: 'level_config',
+      message: 'Which level of configuration do you want ?',
+      choices: ['beginner', 'confirmed', 'expert']
+    };
     this.vars = {};
-    allEslintRules.forEach(function (rule) {
+    [levelQuestion].concat(allEslintRules).forEach(function (rule) {
         self.vars[_.snakeCase(rule)] = 0;
         self.vars[rule] = 0;
     });
@@ -17,13 +33,28 @@ var gulpfileGenerator = module.exports = generators.Base.extend({
   prompting: function () {
     var self = this;
     var done = self.async();
+    var levelNum = getLevelNumber(self.vars.level_config);
+    console.log(levelNum);
 
-    var list = questions.slice(0, 10).reduce(function (concatList, question) {
-        return concatList.concat(question.type !== 'list-depth' ? [question] : question.lists);
-    }, []);
+    var list = questions.filter(function (question) {
+        return question.priority >= levelNum;
+      })
+      .reduce(function (concatList, question) {
+          return concatList.concat(question.type !== 'list-depth' ? [question] : question.lists);
+      }, [])
+      .filter(function (question) {
+        return question != null;
+      });
 
+    console.log(list.length + ' questions');
     self.prompt(list, function (answers) {
         var answersTmp = {};
+        var listType = list.filter(function (question) {
+          return question.type === 'checkbox';
+        }).map(function (question) {
+          return question.name;
+        });
+
         _.forEach(answers, function (answer, key) {
             var splittedKey = key.split('.');
 
@@ -50,7 +81,13 @@ var gulpfileGenerator = module.exports = generators.Base.extend({
             else if(answer === false) {
               answer = 0;
             }
-            else{
+            else if (listType.indexOf(key) !== -1) {
+              answer = [2, answer.reduce(function (obj, param) {
+                var newObj = {};
+                newObj[param] = true;
+                return _.assign({}, obj, newObj);
+              }, {})];
+            } else {
               answer = [1, answer];
             }
             answersTmp[key] = JSON.stringify(answer);
@@ -83,3 +120,16 @@ var gulpfileGenerator = module.exports = generators.Base.extend({
 
   }
 });
+
+function getLevelNumber(levelString) {
+  switch(levelString) {
+    case 'beginner':
+      return 2;
+    case 'confirmed':
+      return 1;
+    case 'expert':
+      return 0;
+    default:
+      return 2;
+  }
+}
