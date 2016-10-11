@@ -27,6 +27,12 @@ module.exports =
     "message": "Do you use jquery?"
   },
   {
+    "type": "confirm",
+    "name": "es6",
+    "priority": 2,
+    "message": "Do you use es6?"
+  },
+  {
     "type": "input",
     "name": "globals",
     "priority": 2,
@@ -87,7 +93,6 @@ module.exports =
       "consistent",
       "consistent-as-needed",
       "keywords",
-      "unnecessary",
       "unnecessary",
       "numbers"
     ]
